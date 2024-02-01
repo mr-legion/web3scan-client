@@ -1,5 +1,6 @@
 package io.algostrategy.client.web3scan;
 
+import io.algostrategy.client.web3scan.impl.Web3scanApiAsyncRestClientImpl;
 import io.algostrategy.client.web3scan.impl.Web3scanApiRestClientImpl;
 import io.algostrategy.client.web3scan.impl.Web3scanApiService;
 import okhttp3.OkHttpClient;
@@ -43,10 +44,26 @@ public class Web3scanApiClientFactory {
     }
 
     /**
+     * Creates a new asynchronous/non-blocking REST client.
+     */
+    public Web3scanApiAsyncRestClient newEtherscanAsyncRestClient() {
+        Web3scanApiService service = createService(ETHERSCAN_API_URL, Web3scanApiService.class, client, apiKey);
+        return new Web3scanApiAsyncRestClientImpl(service);
+    }
+
+    /**
      * Creates a new synchronous/blocking bscscan REST client.
      */
     public Web3scanApiRestClient newBscscanRestClient() {
         Web3scanApiService service = createService(BSCSCAN_API_URL, Web3scanApiService.class, client, apiKey);
         return new Web3scanApiRestClientImpl(service);
+    }
+
+    /**
+     * Creates a new asynchronous/non-blocking REST client.
+     */
+    public Web3scanApiAsyncRestClient newBscscanAsyncRestClient() {
+        Web3scanApiService service = createService(BSCSCAN_API_URL, Web3scanApiService.class, client, apiKey);
+        return new Web3scanApiAsyncRestClientImpl(service);
     }
 }
