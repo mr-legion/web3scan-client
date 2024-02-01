@@ -1,6 +1,5 @@
 package io.algostrategy.client.web3scan;
 
-import io.algostrategy.client.web3scan.domain.Response;
 import io.algostrategy.client.web3scan.domain.contract.ContractABI;
 
 import java.util.List;
@@ -18,5 +17,5 @@ public interface Web3scanApiRestClient {
      * @param address of contract
      * @return list of ABI
      */
-    Response<List<ContractABI>> getContractABI(String address);
+    List<ContractABI> getContractABI(String address);
 }

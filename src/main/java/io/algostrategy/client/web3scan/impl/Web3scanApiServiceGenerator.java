@@ -1,9 +1,12 @@
 package io.algostrategy.client.web3scan.impl;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.algostrategy.client.web3scan.domain.Response;
 import io.algostrategy.client.web3scan.exception.Web3scanApiException;
 import io.algostrategy.client.web3scan.security.AuthenticationInterceptor;
+import lombok.SneakyThrows;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Converter;
@@ -50,5 +53,11 @@ public class Web3scanApiServiceGenerator {
         } catch (IOException e) {
             throw new Web3scanApiException(e);
         }
+    }
+
+    @SneakyThrows
+    public static <T> T readResponse(Response<String> response, TypeReference<T> valueTypeRef) {
+        if (!response.getStatus()) throw new Web3scanApiException(response.getData());
+        return mapper.readValue(response.getData(), valueTypeRef);
     }
 }
