@@ -27,7 +27,7 @@ public class Web3scanApiServiceGenerator {
         mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL);
     }
 
-    public static <S> S createService(String apiUrl, Class<S> serviceClass, OkHttpClient client, String apiKey) {
+    public static <S> S createService(String apiUrl, String apiKey, OkHttpClient client, Class<S> serviceClass) {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(apiUrl)

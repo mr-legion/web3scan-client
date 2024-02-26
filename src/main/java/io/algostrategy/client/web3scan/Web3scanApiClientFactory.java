@@ -1,6 +1,5 @@
 package io.algostrategy.client.web3scan;
 
-import io.algostrategy.client.web3scan.impl.Web3scanApiAsyncRestClientImpl;
 import io.algostrategy.client.web3scan.impl.Web3scanApiRestClientImpl;
 import io.algostrategy.client.web3scan.impl.Web3scanApiService;
 import okhttp3.OkHttpClient;
@@ -14,56 +13,33 @@ import static io.algostrategy.client.web3scan.impl.Web3scanApiServiceGenerator.c
  */
 public class Web3scanApiClientFactory {
 
-    private final OkHttpClient client;
-    private final String apiKey;
-
-    public Web3scanApiClientFactory(String apiKey) {
-        this(new OkHttpClient(), apiKey);
-    }
-
-    public Web3scanApiClientFactory(OkHttpClient client, String apiKey) {
-        this.client = client;
-        this.apiKey = apiKey;
-    }
-
     /**
-     * New instance with authentication.
-     *
-     * @return the API client factory
+     * Creates a new synchronous/blocking etherscan REST client.
      */
-    public static Web3scanApiClientFactory newInstance(String apiKey) {
-        return new Web3scanApiClientFactory(apiKey);
+    public static Web3scanApiRestClient newEtherscanRestClient(String apiKey) {
+        return newEtherscanRestClient(apiKey, new OkHttpClient());
     }
 
     /**
      * Creates a new synchronous/blocking etherscan REST client.
      */
-    public Web3scanApiRestClient newEtherscanRestClient() {
-        Web3scanApiService service = createService(ETHERSCAN_API_URL, Web3scanApiService.class, client, apiKey);
+    public static Web3scanApiRestClient newEtherscanRestClient(String apiKey, OkHttpClient client) {
+        Web3scanApiService service = createService(ETHERSCAN_API_URL, apiKey, client, Web3scanApiService.class);
         return new Web3scanApiRestClientImpl(service);
-    }
-
-    /**
-     * Creates a new asynchronous/non-blocking REST client.
-     */
-    public Web3scanApiAsyncRestClient newEtherscanAsyncRestClient() {
-        Web3scanApiService service = createService(ETHERSCAN_API_URL, Web3scanApiService.class, client, apiKey);
-        return new Web3scanApiAsyncRestClientImpl(service);
     }
 
     /**
      * Creates a new synchronous/blocking bscscan REST client.
      */
-    public Web3scanApiRestClient newBscscanRestClient() {
-        Web3scanApiService service = createService(BSCSCAN_API_URL, Web3scanApiService.class, client, apiKey);
-        return new Web3scanApiRestClientImpl(service);
+    public static Web3scanApiRestClient newBscscanRestClient(String apiKey) {
+        return newBscscanRestClient(apiKey, new OkHttpClient());
     }
 
     /**
-     * Creates a new asynchronous/non-blocking REST client.
+     * Creates a new synchronous/blocking bscscan REST client.
      */
-    public Web3scanApiAsyncRestClient newBscscanAsyncRestClient() {
-        Web3scanApiService service = createService(BSCSCAN_API_URL, Web3scanApiService.class, client, apiKey);
-        return new Web3scanApiAsyncRestClientImpl(service);
+    public static Web3scanApiRestClient newBscscanRestClient(String apiKey, OkHttpClient client) {
+        Web3scanApiService service = createService(BSCSCAN_API_URL, apiKey, client, Web3scanApiService.class);
+        return new Web3scanApiRestClientImpl(service);
     }
 }

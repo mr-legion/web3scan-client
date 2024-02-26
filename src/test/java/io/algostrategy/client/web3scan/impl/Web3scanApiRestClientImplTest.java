@@ -20,8 +20,8 @@ public class Web3scanApiRestClientImplTest {
     public void setUp() {
         String etherscanApiKey = System.getenv("ETHERSCAN_API_KEY");
         String bscscanApiKey = System.getenv("BSCSCAN_API_KEY");
-        this.etherscanApiRestClient = Web3scanApiClientFactory.newInstance(etherscanApiKey).newEtherscanRestClient();
-        this.bscscanApiRestClient = Web3scanApiClientFactory.newInstance(bscscanApiKey).newBscscanRestClient();
+        this.etherscanApiRestClient = Web3scanApiClientFactory.newEtherscanRestClient(etherscanApiKey);
+        this.bscscanApiRestClient = Web3scanApiClientFactory.newBscscanRestClient(bscscanApiKey);
     }
 
     // Etherscan

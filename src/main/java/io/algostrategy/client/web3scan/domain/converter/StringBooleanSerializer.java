@@ -1,4 +1,4 @@
-package io.algostrategy.client.web3scan.domain;
+package io.algostrategy.client.web3scan.domain.converter;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
